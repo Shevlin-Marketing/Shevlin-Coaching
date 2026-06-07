@@ -185,7 +185,7 @@
         <input type="radio" name="tier" value="tier1">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Foundation — Tier 1 · £2,500</strong>
+          <strong>The Sales Foundation — Tier 1</strong>
           <span>I'm in employment and want to break into high ticket sales. I want to learn the full framework, build a pipeline, and land my first commission-based role.</span>
         </div>
       </label>
@@ -193,7 +193,7 @@
         <input type="radio" name="tier" value="tier2">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Coach — Tier 2 · £5,000</strong>
+          <strong>The Sales Coach — Tier 2</strong>
           <span>I'm an experienced B2B sales rep or account manager. I want to move into sales leadership — developing teams, coaching reps, and building management capability.</span>
         </div>
       </label>
@@ -201,7 +201,7 @@
         <input type="radio" name="tier" value="tier3">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Business — Tier 3 · £10,000</strong>
+          <strong>The Sales Business — Tier 3</strong>
           <span>I've led sales teams and I want to build my own independent sales operation. I'm ready to think like a business owner and license a proven model.</span>
         </div>
       </label>
@@ -478,7 +478,7 @@
       submittedAt: new Date().toLocaleString('en-GB')
     };
 
-    // ---- CRM LEAD (DEBUG: shows result on screen) ----
+    // ---- CREATE A LEAD IN THE CRM (Supabase) ----
     const SUPA_URL  = 'https://wuugikbtlmdyfgvuopic.supabase.co';
     const SUPA_ANON = 'sb_publishable_po2MbZdw3YpW2Fhx9yhlkA_1bEmmFgm';
     fetch(SUPA_URL + '/rest/v1/leads', {
@@ -509,9 +509,7 @@
           'Extra: ' + data.extra + '\n' +
           'Submitted: ' + data.submittedAt
       })
-    })
-    .then(function(r){ return r.text().then(function(t){ alert('CRM RESULT: ' + r.status + (t ? ('\n' + t) : '\n(empty = success)')); }); })
-    .catch(function(e){ alert('CRM ERROR: ' + e.message); });
+    }).catch(function(){});
     // ---- END CRM LEAD ----
 
     // Send to Formspree (free form backend — replace mrejdprg with your Formspree endpoint)
