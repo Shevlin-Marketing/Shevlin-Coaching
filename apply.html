@@ -185,7 +185,7 @@
         <input type="radio" name="tier" value="tier1">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Foundation — Tier 1</strong>
+          <strong>The Sales Foundation — Tier 1 · £2,500</strong>
           <span>I'm in employment and want to break into high ticket sales. I want to learn the full framework, build a pipeline, and land my first commission-based role.</span>
         </div>
       </label>
@@ -193,7 +193,7 @@
         <input type="radio" name="tier" value="tier2">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Coach — Tier 2</strong>
+          <strong>The Sales Coach — Tier 2 · £5,000</strong>
           <span>I'm an experienced B2B sales rep or account manager. I want to move into sales leadership — developing teams, coaching reps, and building management capability.</span>
         </div>
       </label>
@@ -201,7 +201,7 @@
         <input type="radio" name="tier" value="tier3">
         <div class="radio-dot"></div>
         <div class="radio-text">
-          <strong>The Sales Business — Tier 3</strong>
+          <strong>The Sales Business — Tier 3 · £10,000</strong>
           <span>I've led sales teams and I want to build my own independent sales operation. I'm ready to think like a business owner and license a proven model.</span>
         </div>
       </label>
@@ -477,6 +477,42 @@
       extra: document.getElementById('extra').value,
       submittedAt: new Date().toLocaleString('en-GB')
     };
+
+    // ---- CRM LEAD (DEBUG: shows result on screen) ----
+    const SUPA_URL  = 'https://wuugikbtlmdyfgvuopic.supabase.co';
+    const SUPA_ANON = 'sb_publishable_po2MbZdw3YpW2Fhx9yhlkA_1bEmmFgm';
+    fetch(SUPA_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPA_ANON,
+        'Authorization': 'Bearer ' + SUPA_ANON,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        name: data.name,
+        contact_link: data.email,
+        tier: data.tier,
+        platform: 'Application Form',
+        status: 'form_submitted',
+        notes:
+          'Phone: ' + data.phone + '\n' +
+          'Location: ' + data.location + '\n' +
+          'Role: ' + data.role + '\n' +
+          'Income: ' + data.income + '\n' +
+          'Situation: ' + data.situation + '\n' +
+          'Goal: ' + data.goal + '\n' +
+          'Seriousness: ' + data.seriousness + '\n' +
+          'Obstacle: ' + data.obstacle + '\n' +
+          'Readiness: ' + data.readiness + '\n' +
+          'Source: ' + data.source + '\n' +
+          'Extra: ' + data.extra + '\n' +
+          'Submitted: ' + data.submittedAt
+      })
+    })
+    .then(function(r){ return r.text().then(function(t){ alert('CRM RESULT: ' + r.status + (t ? ('\n' + t) : '\n(empty = success)')); }); })
+    .catch(function(e){ alert('CRM ERROR: ' + e.message); });
+    // ---- END CRM LEAD ----
 
     // Send to Formspree (free form backend — replace mrejdprg with your Formspree endpoint)
     fetch('https://formspree.io/f/mrejdprg', {
